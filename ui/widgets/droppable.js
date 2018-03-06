@@ -284,8 +284,14 @@ $.ui.intersect = ( function() {
 				t < y1 + ( draggable.helperProportions.height / 2 ) && // Bottom Half
 				y2 - ( draggable.helperProportions.height / 2 ) < b ); // Top Half
 		case "pointer":
-			return isOverAxis( event.pageY, t, droppable.proportions().height ) &&
-				isOverAxis( event.pageX, l, droppable.proportions().width );
+			var droppableRect = droppable.element[ 0 ].getBoundingClientRect();
+			l = droppableRect.left;
+			t = droppableRect.top;
+      var h = droppableRect.height,
+      w = droppableRect.width;
+
+    return isOverAxis( event.pageY, t, h ) &&
+				isOverAxis( event.pageX, l, w );
 		case "touch":
 			return (
 				( y1 >= t && y1 <= b ) || // Top edge touching
